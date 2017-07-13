@@ -34,13 +34,13 @@
                                     </connections>
                                 </searchBar>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-au-JhR">
-                                    <rect key="frame" x="10.5" y="51.5" width="92" height="17"/>
+                                    <rect key="frame" x="11" y="52" width="92" height="17"/>
                                     <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bDV-ZZ-2F9">
-                                    <rect key="frame" x="110.5" y="46" width="125" height="29"/>
+                                    <rect key="frame" x="111" y="46" width="125" height="29"/>
                                     <segments>
                                         <segment title="Amount"/>
                                         <segment title="Date"/>
@@ -49,10 +49,18 @@
                                         <action selector="didTapSortBySegmentedControl:" destination="NAs-go-Tt2" eventType="valueChanged" id="0kD-14-wPz"/>
                                     </connections>
                                 </segmentedControl>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5b-WG-tpB">
+                                    <rect key="frame" x="325" y="54" width="42" height="18"/>
+                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="Wws-ek-Z6u" secondAttribute="trailing" id="Nzw-GE-yQF"/>
+                                <constraint firstAttribute="trailing" secondItem="d5b-WG-tpB" secondAttribute="trailing" constant="8" id="Qgn-AL-DJO"/>
+                                <constraint firstAttribute="bottom" secondItem="d5b-WG-tpB" secondAttribute="bottom" constant="8" id="Wfk-BM-sa0"/>
                                 <constraint firstItem="bDV-ZZ-2F9" firstAttribute="leading" secondItem="DfN-au-JhR" secondAttribute="trailing" constant="8" id="gBu-bM-eaE"/>
                                 <constraint firstItem="DfN-au-JhR" firstAttribute="centerX" secondItem="Bbd-B4-Ucj" secondAttribute="centerX" multiplier="0.3" id="hlf-iO-kCT"/>
                                 <constraint firstItem="bDV-ZZ-2F9" firstAttribute="centerY" secondItem="DfN-au-JhR" secondAttribute="centerY" id="mlC-1N-ibQ"/>
@@ -66,7 +74,7 @@
                                 <rect key="frame" x="0.0" y="108" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DFm-0c-Bhr" id="28O-SC-yB8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da5-0o-45I">
@@ -125,6 +133,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="countLabel" destination="d5b-WG-tpB" id="a0h-cw-RbJ"/>
                         <outlet property="nameSearchBar" destination="Wws-ek-Z6u" id="WTR-jF-ws5"/>
                         <outlet property="sortTypeSegmentedControl" destination="bDV-ZZ-2F9" id="JGp-XB-Rgi"/>
                     </connections>

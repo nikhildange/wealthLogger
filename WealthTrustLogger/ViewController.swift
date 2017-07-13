@@ -15,6 +15,7 @@ class ViewController: UITableViewController,UISearchBarDelegate {
     var performSortOfType : SortType = .byAmount
     var doTableNeedsReload = false
     @IBOutlet weak var nameSearchBar: UISearchBar!
+    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var sortTypeSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
@@ -68,6 +69,14 @@ class ViewController: UITableViewController,UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if doTableNeedsReload {
             doTableNeedsReload = false
+            switch sortTypeSegmentedControl.selectedSegmentIndex {
+            case 0:
+                performSortOfType = .byAmount
+            case 1:
+                performSortOfType = .byDate
+            default:
+                break
+            }
             sortTable()
         }
         nameSearchBar.text = ""
@@ -100,15 +109,20 @@ class ViewController: UITableViewController,UISearchBarDelegate {
     }
     
     func sortTable() {
-        switch performSortOfType {
-        case .byAmount:
-            arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byAmount)
-        case .byDate:
-            arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byDate)
-        case .byName(let searchText):
-            arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byName(searchText: searchText))
+        DispatchQueue.global().async {
+            switch self.performSortOfType {
+            case .byAmount:
+                self.arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byAmount)
+            case .byDate:
+                self.arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byDate)
+            case .byName(let searchText):
+                self.arrayOfAsset = DatabaseManager.sharedDatabaseManager.sortBy(AmountOrDateOrName: .byName(searchText: searchText))
+            }
+            DispatchQueue.main.async(execute: {
+                self.countLabel.text = String(self.arrayOfAsset.count)+" Entries"
+                self.tableView.reloadData()
+            })
         }
-        self.tableView.reloadData()
     }
     
     func downloadAndloadFileAssetIntoDatabase() {
@@ -132,7 +146,7 @@ class ViewController: UITableViewController,UISearchBarDelegate {
             UserDefaults.standard.set(true, forKey: "loaded")
         })
         let operationQueue = OperationQueue()
-        operationQueue.maxConcurrentOperationCount = 2;
+        operationQueue.maxConcurrentOperationCount = 1;
         operationQueue.addOperation(operation)
     }
     
@@ -140,7 +154,7 @@ class ViewController: UITableViewController,UISearchBarDelegate {
         if UserDefaults.standard.object(forKey: "loaded") == nil || UserDefaults.standard.object(forKey: "loaded") as! Bool? == false {
             OperationQueue.main.addOperation {
                 let i = time == 0 ? 5 : time;
-                print(i)
+//                print(i)
                 self.perform(#selector(self.doSortingDuringLoading), with: nil, afterDelay: i)
                 self.sortTable()
             }
