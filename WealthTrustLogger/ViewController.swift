@@ -144,6 +144,9 @@ class ViewController: UITableViewController,UISearchBarDelegate {
                 }
             }
             UserDefaults.standard.set(true, forKey: "loaded")
+            OperationQueue.main.addOperation {
+                self.sortTable()
+            }
         })
         let operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1;
